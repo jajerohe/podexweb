@@ -177,9 +177,21 @@ a.menu-opcion:hover { background: #e3ece8; }
 .tabla tbody tr:hover { background: #f3f8f6; }
 .tabla tbody tr.sel { background: #e1efe9; box-shadow: inset 3px 0 0 var(--oscuro); }
 .tabla .col-acciones { width: 1%; white-space: nowrap; text-align: center; vertical-align: middle; }
-.tabla td.col-acciones { padding-top: 3px; padding-bottom: 3px; }
-.acciones.fila { gap: 6px; justify-content: center; }
-.circulo.mini { width: 28px; height: 28px; box-shadow: 0 1px 4px rgba(20, 60, 90, .22); }
+.tabla td.col-acciones { padding-top: 4px; padding-bottom: 4px; }
+.acciones.fila { gap: 5px; justify-content: center; }
+/* Botones de cada fila: discretos (gris) y con su color al pasar por la fila,
+   al enfocarlos con el teclado o en la fila resaltada. En pantallas táctiles,
+   donde no hay "pasar por encima", se ven siempre con color. */
+.circulo.mini { width: 24px; height: 24px; }
+.tabla tr:not(.sel) .circulo.mini:not(:focus-visible) { background: #eef1f0; color: #7d8a86; box-shadow: none; }
+.tabla tr:not(.sel):hover .circulo.mini.verde { background: linear-gradient(160deg, #ccd32a, #004236); color: #fff; }
+.tabla tr:not(.sel):hover .circulo.mini.azul { background: linear-gradient(160deg, #2f6db5, #00214d); color: #fff; }
+.tabla tr:not(.sel):hover .circulo.mini.naranja { background: linear-gradient(160deg, #f7db17, #ff5f00); color: #fff; }
+@media (hover: none) {
+  .tabla tr:not(.sel) .circulo.mini.verde { background: linear-gradient(160deg, #ccd32a, #004236); color: #fff; }
+  .tabla tr:not(.sel) .circulo.mini.azul { background: linear-gradient(160deg, #2f6db5, #00214d); color: #fff; }
+  .tabla tr:not(.sel) .circulo.mini.naranja { background: linear-gradient(160deg, #f7db17, #ff5f00); color: #fff; }
+}
 .pie-tabla { margin-top: 6px; text-align: right; }
 
 /* ============================================================

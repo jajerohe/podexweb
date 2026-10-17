@@ -93,11 +93,11 @@ export default function TablaSolicitudes({ solicitudes, escritura, subtitulo }: 
                     <td className="col-acciones">
                       <div className="acciones fila">
                         <button className="circulo mini verde" title="Gestionar" aria-label={`Gestionar ${s.ID_SOLICITUD}`}
-                          onClick={() => abrir(s.ID_SOLICITUD, "gestionar")}><IcoEditar tam={15} /></button>
+                          onClick={() => abrir(s.ID_SOLICITUD, "gestionar")}><IcoEditar tam={14} /></button>
                         <button className="circulo mini azul" title="Ver gestión" aria-label={`Ver gestión de ${s.ID_SOLICITUD}`}
-                          onClick={() => abrir(s.ID_SOLICITUD, "ver")}><IcoBuscar tam={15} /></button>
+                          onClick={() => abrir(s.ID_SOLICITUD, "ver")}><IcoBuscar tam={14} /></button>
                         <button className="circulo mini naranja" title="Actualizar" aria-label={`Actualizar ${s.ID_SOLICITUD}`}
-                          onClick={() => abrir(s.ID_SOLICITUD, "actualizar")}><IcoDocumento tam={15} /></button>
+                          onClick={() => abrir(s.ID_SOLICITUD, "actualizar")}><IcoDocumento tam={14} /></button>
                       </div>
                     </td>
                   </tr>
