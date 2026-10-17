@@ -47,6 +47,8 @@ export default function TablaSolicitudes({ solicitudes, escritura, subtitulo }: 
   }, [solicitudes, busqueda]);
 
   const solicitud = filtradas.find((s) => s.ID_SOLICITUD === seleccionada) ?? null;
+  // Cada fila tiene sus botones: abren la ventana de esa solicitud y la dejan resaltada.
+  const abrir = (id: string, a: Accion) => { setSeleccionada(id); setAccion(a); };
   const cerrar = useCallback(() => setAccion(null), []);
   const terminado = useCallback((mensaje: string) => { setAccion(null); setAviso(mensaje); }, []);
 
@@ -72,33 +74,32 @@ export default function TablaSolicitudes({ solicitudes, escritura, subtitulo }: 
         <div className="alerta alerta-info">ℹ️ No existen solicitudes que coincidan con el criterio de búsqueda.</div>
       ) : (
         <>
-          <div className="barra-seleccion">
-            <div>
-              {solicitud
-                ? <><b>Solicitud seleccionada:</b> {solicitud.ID_SOLICITUD}</>
-                : <span className="nota">☝️ Seleccione una solicitud en la tabla para gestionarla.</span>}
-            </div>
-            <div className="acciones">
-              <button className="circulo verde" disabled={!solicitud} title="Gestionar" onClick={() => setAccion("gestionar")}><IcoEditar /></button>
-              <button className="circulo azul" disabled={!solicitud} title="Ver gestión" onClick={() => setAccion("ver")}><IcoBuscar /></button>
-              <button className="circulo naranja" disabled={!solicitud} title="Actualizar" onClick={() => setAccion("actualizar")}><IcoDocumento /></button>
-            </div>
-          </div>
-
           <div className="tabla-contenedor">
-            <table className="tabla tabla-seleccion">
+            <table className="tabla">
               <thead>
-                <tr><th>ID_SOLICITUD</th><th>TITULO</th><th>SUBSERVICIO_AFECTADO</th><th>PRODUCT_OWNER</th><th>STATUS</th></tr>
+                <tr>
+                  <th>ID_SOLICITUD</th><th>TITULO</th><th>SUBSERVICIO_AFECTADO</th><th>PRODUCT_OWNER</th><th>STATUS</th>
+                  <th className="col-acciones">Acciones</th>
+                </tr>
               </thead>
               <tbody>
                 {filtradas.map((s) => (
-                  <tr key={s.ID_SOLICITUD} className={s.ID_SOLICITUD === seleccionada ? "sel" : undefined}
-                    onClick={() => setSeleccionada(s.ID_SOLICITUD === seleccionada ? null : s.ID_SOLICITUD)}>
-                    <td>{s.ID_SOLICITUD}</td>
+                  <tr key={s.ID_SOLICITUD} className={s.ID_SOLICITUD === seleccionada ? "sel" : undefined}>
+                    <td className="nowrap">{s.ID_SOLICITUD}</td>
                     <td className="ancha">{s.TITULO}</td>
                     <td>{s.SUBSERVICIO_AFECTADO}</td>
                     <td>{s.PRODUCT_OWNER}</td>
-                    <td>{s.STATUS}</td>
+                    <td className="nowrap">{s.STATUS}</td>
+                    <td className="col-acciones">
+                      <div className="acciones fila">
+                        <button className="circulo mini verde" title="Gestionar" aria-label={`Gestionar ${s.ID_SOLICITUD}`}
+                          onClick={() => abrir(s.ID_SOLICITUD, "gestionar")}><IcoEditar tam={15} /></button>
+                        <button className="circulo mini azul" title="Ver gestión" aria-label={`Ver gestión de ${s.ID_SOLICITUD}`}
+                          onClick={() => abrir(s.ID_SOLICITUD, "ver")}><IcoBuscar tam={15} /></button>
+                        <button className="circulo mini naranja" title="Actualizar" aria-label={`Actualizar ${s.ID_SOLICITUD}`}
+                          onClick={() => abrir(s.ID_SOLICITUD, "actualizar")}><IcoDocumento tam={15} /></button>
+                      </div>
+                    </td>
                   </tr>
                 ))}
               </tbody>
